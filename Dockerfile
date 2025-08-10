@@ -14,8 +14,9 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libcurl4-openssl-dev \
     nginx \
-    mysql-client \
+    default-mysql-client \
     supervisor
+
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip

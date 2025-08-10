@@ -69,17 +69,45 @@
             border-top: 1px solid #dee2e6;
         }
         
-        @media (max-width: 768px) {
-            .sidebar {
+        /* Desktop styles - sidebar and content side by side */
+        @media (min-width: 768px) {
+            .sidebar-col {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 250px;
+                height: 100vh;
+                z-index: 1000;
+            }
+            
+            .main-col {
+                margin-left: 250px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .sidebar-col {
+                width: 200px;
+            }
+            
+            .main-col {
+                margin-left: 200px;
+            }
+        }
+        
+        /* Mobile styles - sidebar overlay */
+        @media (max-width: 767.98px) {
+            .sidebar-col {
                 position: fixed;
                 top: 0;
                 left: -250px;
                 width: 250px;
+                height: 100vh;
                 z-index: 1050;
                 transition: left 0.3s ease;
             }
             
-            .sidebar.show {
+            .sidebar-col.show {
                 left: 0;
             }
             
@@ -97,86 +125,101 @@
             .sidebar-overlay.show {
                 display: block;
             }
+            
+            .main-col {
+                margin-left: 0;
+            }
+        }
+
+        .container-fluid {
+            padding: 0;
+        }
+
+        @media (max-width: 576px) {
+            .input-group {
+                min-width: 200px !important;
+            }
+            
+            .card-header .d-flex {
+                gap: 1rem !important;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-             Sidebar 
-            <div class="col-md-3 col-lg-2 px-0">
-                <div class="sidebar d-flex flex-column">
-                     Sidebar Brand 
-                    <div class="sidebar-brand">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-primary text-white rounded p-2 me-2">
-                                <i class="bi bi-people-fill"></i>
-                            </div>
-                            <div>
-                                <h6 class="mb-0">Admin Dashboard</h6>
-                                <small class="text-muted">User Management</small>
-                            </div>
+    <div class="container-fluid p-0">
+         Sidebar 
+        <div class="sidebar-col">
+            <div class="sidebar d-flex flex-column h-100">
+                <div class="sidebar-brand">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-primary text-white rounded p-2 me-2">
+                            <i class="bi bi-people-fill"></i>
                         </div>
-                    </div>
-                    
-                     Navigation 
-                    <nav class="nav flex-column px-3">
-                        <h6 class="text-muted text-uppercase fw-bold mb-2 mt-3">Navigation</h6>
-                        <a class="nav-link active" href="#" data-section="users">
-                            <i class="bi bi-people me-2"></i>
-                            All Users
-                        </a>
-                        <a class="nav-link" href="#" data-section="wallets">
-                            <i class="bi bi-wallet2 me-2"></i>
-                            Wallet Management
-                        </a>
-                        <a class="nav-link" href="#" data-section="reports">
-                            <i class="bi bi-graph-up me-2"></i>
-                            Financial Reports
-                        </a>
-                    </nav>
-                    
-                     Sidebar Footer 
-                    <div class="sidebar-footer">
-                        <div class="dropdown">
-                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                                <div class="user-avatar me-2">AD</div>
-                                <span>Admin User</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>Support</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign out</a></li>
-                            </ul>
+                        <div>
+                            <h6 class="mb-0">Admin Dashboard</h6>
+                            <small class="text-muted">User Management</small>
                         </div>
                     </div>
                 </div>
+                
+                <nav class="nav flex-column px-3">
+                    <h6 class="text-muted text-uppercase fw-bold mb-2 mt-3">Navigation</h6>
+                    <a class="nav-link active" href="#" data-section="users">
+                        <i class="bi bi-people me-2"></i>
+                        All Users
+                    </a>
+                    <a class="nav-link" href="#" data-section="wallets">
+                        <i class="bi bi-wallet2 me-2"></i>
+                        Wallet Management
+                    </a>
+                    <a class="nav-link" href="#" data-section="reports">
+                        <i class="bi bi-graph-up me-2"></i>
+                        Financial Reports
+                    </a>
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <div class="user-avatar me-2">AD</div>
+                            <span>Admin User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-question-circle me-2"></i>Support</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            
-             Mobile Sidebar Overlay 
-            <div class="sidebar-overlay" id="sidebarOverlay"></div>
-            
-             Main Content 
-            <div class="col-md-9 col-lg-10">
-                <div class="main-content">
-                     Header 
-                    <header class="border-bottom py-3 px-4 mb-4">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-outline-secondary d-md-none me-3" id="sidebarToggle">
-                                    <i class="bi bi-list"></i>
-                                </button>
-                                <div>
-                                    <h1 class="h4 mb-0">User Management</h1>
-                                    <p class="text-muted mb-0">Manage and monitor all registered users</p>
-                                </div>
+        </div>
+        
+         Mobile Sidebar Overlay 
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+         Main Content 
+        <div class="main-col">
+            <div class="main-content">
+                 Header 
+                <header class="border-bottom py-3 px-4 mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-outline-secondary d-md-none me-3" id="sidebarToggle">
+                                <i class="bi bi-list"></i>
+                            </button>
+                            <div>
+                                <h1 class="h4 mb-0">User Management</h1>
+                                <p class="text-muted mb-0">Manage and monitor all registered users</p>
                             </div>
                         </div>
-                    </header>
-                    
-                     Stats Cards 
-                    <div class="row mb-4 px-4">
+                    </div>
+                </header>
+                
+                 Stats Cards 
+                <div class="container-fluid px-4">
+                    <div class="row mb-4">
                         <div class="col-md-4 mb-3">
                             <div class="card stats-card">
                                 <div class="card-body">
@@ -228,45 +271,47 @@
                     </div>
                     
                      Users Table 
-                    <div class="px-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h5 class="card-title mb-1">Registered Users</h5>
-                                        <p class="text-muted mb-0">A list of all registered users with their wallet information</p>
-                                    </div>
-                                    <div class="d-flex gap-2">
-                                        <div class="input-group" style="width: 300px;">
-                                            <span class="input-group-text">
-                                                <i class="bi bi-search"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Search users..." id="searchInput">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+                                        <div>
+                                            <h5 class="card-title mb-1">Registered Users</h5>
+                                            <p class="text-muted mb-0">A list of all registered users with their wallet information</p>
                                         </div>
-                                        <button class="btn btn-outline-secondary">
-                                            <i class="bi bi-funnel me-1"></i>
-                                            Filter
-                                        </button>
+                                        <div class="d-flex flex-column flex-sm-row gap-2">
+                                            <div class="input-group" style="min-width: 250px;">
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-search"></i>
+                                                </span>
+                                                <input type="text" class="form-control" placeholder="Search users..." id="searchInput">
+                                            </div>
+                                            <button class="btn btn-outline-secondary">
+                                                <i class="bi bi-funnel me-1"></i>
+                                                Filter
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-hover mb-0">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>User</th>
-                                                <th>Wallet Address</th>
-                                                <th>Balance</th>
-                                                <th>Status</th>
-                                                <th>Joined</th>
-                                                <th class="text-end">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="usersTableBody">
-                                             Users will be populated by JavaScript 
-                                        </tbody>
-                                    </table>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Wallet Address</th>
+                                                    <th>Balance</th>
+                                                    <th>Status</th>
+                                                    <th>Joined</th>
+                                                    <th class="text-end">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="usersTableBody">
+                                                 Users will be populated by JavaScript 
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -437,7 +482,7 @@
         // Mobile sidebar toggle
         function setupMobileSidebar() {
             const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.querySelector('.sidebar');
+            const sidebar = document.querySelector('.sidebar-col');
             const overlay = document.getElementById('sidebarOverlay');
 
             sidebarToggle.addEventListener('click', function() {
